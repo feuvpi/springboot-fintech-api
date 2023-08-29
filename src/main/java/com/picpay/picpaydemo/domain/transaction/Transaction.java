@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private long id;
+    private String id;
     private BigDecimal amount;
     @ManyToOne
     private User sender;
