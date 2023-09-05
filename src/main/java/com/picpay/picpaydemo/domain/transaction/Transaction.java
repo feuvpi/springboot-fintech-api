@@ -25,5 +25,4 @@ public class Transaction {
     @JoinColumn(name="receiver_id")
     private User receiver;
     private LocalDateTime timestamp;
-
 }
