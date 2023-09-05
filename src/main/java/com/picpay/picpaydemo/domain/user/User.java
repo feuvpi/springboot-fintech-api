@@ -1,11 +1,9 @@
 package com.picpay.picpaydemo.domain.user;
 
 
+import com.picpay.picpaydemo.dtos.UserDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -14,9 +12,22 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(of="id")
 
 public class User {
+
+
+    public User (UserDTO user){
+        this.firstName = user.firstName();
+        this.lastName = user.lastName();
+        this.email = user.email();
+        this.document = user.document();
+        this.password = user.password();
+        //this.balance = BigDecimal.ZERO;
+        this.userType = UserType.COMMON;
+        this.balance = user.amount();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
