@@ -1,6 +1,6 @@
 package com.picpay.picpaydemo.services;
 import com.picpay.picpaydemo.domain.user.User;
-updaimport com.picpay.picpaydemo.domain.user.UserRole;
+import com.picpay.picpaydemo.domain.user.UserRole;
 import com.picpay.picpaydemo.dtos.UserDTO;
 import com.picpay.picpaydemo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
