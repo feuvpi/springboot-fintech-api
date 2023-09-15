@@ -1,6 +1,6 @@
 package com.picpay.picpaydemo.services;
 import com.picpay.picpaydemo.domain.user.User;
-import com.picpay.picpaydemo.domain.user.UserType;
+updaimport com.picpay.picpaydemo.domain.user.UserRole;
 import com.picpay.picpaydemo.dtos.UserDTO;
 import com.picpay.picpaydemo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ public class UserService {
     @Autowired
     private UserRepository repository;
     public void validateTransaction(User sender, BigDecimal amount) throws Exception {
-        if(sender.getUserType() == UserType.MERCHANT){
+        if(sender.getRole() == UserRole.MERCHANT){
             throw new Exception("User type not authorized.");
         }
 
