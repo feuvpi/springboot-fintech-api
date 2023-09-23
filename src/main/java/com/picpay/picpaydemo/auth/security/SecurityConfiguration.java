@@ -12,6 +12,9 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static org.springframework.security.config.http.MatcherType.mvc;
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
@@ -22,7 +25,9 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/product").hasRole("ADMIN")
+                        .requestMatchers(antMatcher(HttpMethod.POST, "/auth/login")).permitAll()
+                        .requestMatchers(antMatcher(HttpMethod.POST, "/auth/register")).permitAll()
+                        .requestMatchers(antMatcher(HttpMethod.POST, "/product")).hasRole("MERCHANT")
                         .anyRequest().authenticated())
                 .build();
     }
@@ -33,7 +38,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEnconder(){
+    public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
