@@ -47,6 +47,16 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
+    public User(String email, String encryptedPassword, String firstName, String lastName, String document) {
+        this.email = email;
+        this.password = encryptedPassword;
+        this.role = UserRole.COMMON;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.document = document;
+        this.balance = BigDecimal.ZERO;
+    }
+
     // endregion
 
     @Override
