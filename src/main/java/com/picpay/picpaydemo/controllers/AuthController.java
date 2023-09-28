@@ -1,6 +1,8 @@
 package com.picpay.picpaydemo.controllers;
+import com.picpay.picpaydemo.auth.security.TokenService;
 import com.picpay.picpaydemo.domain.user.User;
 import com.picpay.picpaydemo.dtos.AuthDTO;
+import com.picpay.picpaydemo.dtos.LoginResponseDTO;
 import com.picpay.picpaydemo.dtos.RegisterDTO;
 import com.picpay.picpaydemo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +24,17 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private UserRepository repository;
+
+    @Autowired
+    private TokenService tokenService;
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Validated AuthDTO authDTO){
         var userPassword = new UsernamePasswordAuthenticationToken(authDTO.email(), authDTO.password());
         var auth = this.authenticationManager.authenticate(userPassword);
-        return ResponseEntity.ok().build();
+
+        var token = tokenService.generateToken((User)auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDTO(token));
 
     }
 
