@@ -29,7 +29,11 @@ public class AuthController {
     private TokenService tokenService;
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Validated AuthDTO authDTO){
-        var userPassword = new UsernamePasswordAuthenticationToken(authDTO.email(), authDTO.password());
+
+        String encryptedPassword = new BCryptPasswordEncoder().encode(authDTO.password());
+
+        var userPassword = new UsernamePasswordAuthenticationToken(authDTO.email(), encryptedPassword);
+
         var auth = this.authenticationManager.authenticate(userPassword);
 
         var token = tokenService.generateToken((User)auth.getPrincipal());
