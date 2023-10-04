@@ -32,7 +32,7 @@ public class AuthController {
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(authDTO.password());
 
-        var userPassword = new UsernamePasswordAuthenticationToken(authDTO.email(), encryptedPassword);
+        var userPassword = new UsernamePasswordAuthenticationToken(authDTO.email(), authDTO.password());
 
         var auth = this.authenticationManager.authenticate(userPassword);
 
